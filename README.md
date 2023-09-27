@@ -1,103 +1,69 @@
 # Image_Enhancement
-The repository contains the code of our proposed method implementation
-The block diagram of proposed method is shown below : 
-
-# HAT [![Replicate](https://replicate.com/cjwbw/hat/badge)](https://replicate.com/cjwbw/hat)
 
 ### Enhancing Image Contrast: A Novel Approach using Modified Transfer Function and Energy Curve Equalization
 
 ## Overview
-The block diagram of proposed method is shown below : 
-<img src="Block Diagram.png" width="600"/>
+<img src="Block Diagram.png" width="1000"/>
 
-The 
-**Benchmark results on SRx4 without x2 pretraining. Mulit-Adds are calculated for a 64x64 input.**
-| Model | Params(M) | Multi-Adds(G) | Set5 | Set14 | BSD100 | Urban100 | Manga109 |
-|-------|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
-| [SwinIR](https://github.com/JingyunLiang/SwinIR) |   11.9    | 53.6 | 32.92 | 29.09 | 27.92 | 27.45 | 32.03 |
-| HAT-S |   9.6    | 54.9 | 32.92 | 29.15 | 27.97 | 27.87 | 32.35 |
-| HAT |   20.8    | 102.4 | 33.04 | 29.23 | 28.00 | 27.97 | 32.48 |
+**NOTE:**
+- The block diagram of proposed method is shown in above diagram.
+- **Proposed_Method.m** is MATLAB code for our algorithm.
+- **Image1.jpg** is sample image taken from our dataset as input.
 
-## Real-World SR Results
-**Note that:**
-- The default settings in the training configs (almost the same as Real-ESRGAN) are for training **Real_HAT_GAN_SRx4_sharper**.
-- **Real_HAT_GAN_SRx4** is trained using similar settings without USM the groud truth.
-- **Real_HAT_GAN_SRx4** would have better fidelity.
-- **Real_HAT_GAN_SRx4_sharper** would have better perceptual quality.
+## Datasets
+- We have taken three datasets for testing our proposed algorithm.
+- Three Datasets : 200 images from our dataset of athletes, 100 Images from Berkeley BSDS dataset, 30 images from the CEED2016 dataset.
+- Below are the samples of images from our dataset **IIT Patna Sports-2023** .
+<img src="Our Dataset Samples.JPG" width="1000"/>
 
-**Results produced by** Real_HAT_GAN_SRx4_sharper.pth.
-
-<img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Visual_Results.png" width="800"/>
-
-**Comparison with the state-of-the-art Real-SR methods.**
-
-<img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Comparison.png" width="800"/>
-
-## Citations
-#### BibTeX
-
-    @InProceedings{chen2023activating,
-        author    = {Chen, Xiangyu and Wang, Xintao and Zhou, Jiantao and Qiao, Yu and Dong, Chao},
-        title     = {Activating More Pixels in Image Super-Resolution Transformer},
-        booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-        month     = {June},
-        year      = {2023},
-        pages     = {22367-22377}
-    }
-**Google Scholar has unknown bugs for indexing this paper recently, while it can still be cited by the above BibTeX.**
-
-
-    @article{chen2023hat,
-      title={HAT: Hybrid Attention Transformer for Image Restoration},
-      author={Chen, Xiangyu and Wang, Xintao and Zhang, Wenlong and Kong, Xiangtao and Qiao, Yu and Zhou, Jiantao and Dong, Chao},
-      journal={arXiv preprint arXiv:2309.05239},
-      year={2023}
-    }
-
-## Environment
-- [PyTorch >= 1.7](https://pytorch.org/) **(Recommend **NOT** using torch 1.8!!! It would cause abnormal performance.)**
-- [BasicSR == 1.3.4.9](https://github.com/XPixelGroup/BasicSR/blob/master/INSTALL.md) 
-### Installation
-Install Pytorch first.
-Then,
-```
-pip install -r requirements.txt
-python setup.py develop
-```
-
-## How To Test
-
-Without implementing the codes, [chaiNNer](https://github.com/chaiNNer-org/chaiNNer) is a nice tool to run our models.
-
-Otherwise, 
-- Refer to `./options/test` for the configuration file of the model to be tested, and prepare the testing data and pretrained model.  
-- The pretrained models are available at
-[Google Drive](https://drive.google.com/drive/folders/1HpmReFfoUqUbnAOQ7rvOeNU3uf_m69w0?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1u2r4Lc2_EEeQqra2-w85Xg) (access code: qyrl).  
-- Then run the following codes (taking `HAT_SRx4_ImageNet-pretrain.pth` as an example):
-```
-python hat/test.py -opt options/test/HAT_SRx4_ImageNet-pretrain.yml
-```
-The testing results will be saved in the `./results` folder.  
-
-- Refer to `./options/test/HAT_SRx4_ImageNet-LR.yml` for **inference** without the ground truth image.
-
-**Note that the tile mode is also provided for limited GPU memory when testing. You can modify the specific settings of the tile mode in your custom testing option by referring to `./options/test/HAT_tile_example.yml`.**
-
-## How To Train
-- Refer to `./options/train` for the configuration file of the model to train.
-- Preparation of training data can refer to [this page](https://github.com/XPixelGroup/BasicSR/blob/master/docs/DatasetPreparation.md). ImageNet dataset can be downloaded at the [official website](https://image-net.org/challenges/LSVRC/2012/2012-downloads.php).
-- The training command is like
-```
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python -m torch.distributed.launch --nproc_per_node=8 --master_port=4321 hat/train.py -opt options/train/train_HAT_SRx2_from_scratch.yml --launcher pytorch
-```
-- Note that the default batch size per gpu is 4, which will cost about 20G memory for each GPU.  
-
-The training logs and weights will be saved in the `./experiments` folder.
+**Samples of Our Dataset IIT Patna Sports-2023**
+| Datasets | No. of images taken |
+|-------|:---------:|
+|IIT Patna Sports-2023 (Ours) |   200    |
+| Berkeley BSDS |   100    | 
+| CEED2016 |   30    |
 
 ## Results
-The inference results on benchmark datasets are available at
-[Google Drive](https://drive.google.com/drive/folders/1t2RdesqRVN7L6vCptneNRcpwZAo-Ub3L?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1CQtLpty-KyZuqcSznHT_Zw) (access code: 63p5).
+**Qualitative Analysis**
+- Visualization of input and enhanced output images from IIT Patna Sports-2023, BSDS, and CEED2016 datasets are shown below.
+- Column from top to bottom specifies the low contrast input image, images with JHE, MMSICHE, FCCE, ECE with TF and proposed ECE with modified TF (ours).
+<img src="Qualitative Results.png" width="600"/>
+
+**Quantitative Analysis**
+
+**For IIT Patna Sports-2023 Dataset (200 Images)**
+| Method | PSNR(dB) | SSIM | EME |
+|-------|:---------:|:---------:|:---------:|
+| MMSICHE|   19.761    | 0.8496 | 4.9697 | 
+| JHE |   23.042    | 0.7841 | 5.8608 |
+| FCCE|   22.011   | 0.6865 | 8.8227 |
+| TF using ECE |   23.206   | 0.8640 | 4.6823 | 
+| Modified TF using ECE (Ours) |   25.028    | 0.9041 | 4.2124 |
+
+**For BSDS Dataset (100 Imaages)**
+| Method | PSNR(dB) | SSIM | EME |
+|-------|:---------:|:---------:|:---------:|
+| MMSICHE|   21.713    | 0.9063 | 5.2995 | 
+| JHE |   22.235    | 0.7261 | 5.7808 |
+| FCCE|   23.121    | 0.6225 | 9.1290 |
+| TF using ECE |   25.212    | 0.9297 | 4.7515 | 
+| Modified TF using ECE (Ours) |   27.129    | 0.9312 | 4.2126 |
+
+**For CEED2016 Dataset (30 Images)**
+| Method | PSNR(dB) | SSIM | EME |
+|-------|:---------:|:---------:|:---------:|
+| MMSICHE|   19.993    | 0.9072 | 4.4935 | 
+| JHE |   21.821  | 0.7530 | 4.8880 |
+| FCCE|   22.112   | 0.6167 | 7.9884 |
+| TF using ECE |   23.012    | 0.9340 | 4.3021 | 
+| Modified TF using ECE (Ours) |   25.929    | 0.9496 | 4.0108 |
 
 
-## Contact
-If you have any question, please email chxy95@gmail.com or join in the [Wechat group of BasicSR](https://github.com/XPixelGroup/BasicSR#-contact) to discuss with the authors.
+**Results produced by** Input image **Image1.jpg** in the block diagram.
+
+<img src="PSNR_vs_Alpha.jpg" width="400"/> <img src="SSIM_vs_Alpha.jpg" width="400"/> <img src="EME vs Alpha.jpg" width="400"/>
+
+
+## Environment
+- MATLAB R2023a **(Recommend **NOT** to use very old versions of MATLAB.)**
+
