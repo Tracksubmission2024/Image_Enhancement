@@ -1,4 +1,4 @@
-# Image_Enhancement
+# Low Contrast Image Enhancement
 
 ### Enhancing Image Contrast: A Novel Approach using Modified Transfer Function and Energy Curve Equalization
 
