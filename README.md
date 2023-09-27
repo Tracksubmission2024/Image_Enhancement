@@ -7,8 +7,10 @@ The block diagram of proposed method is shown below :
 ### Enhancing Image Contrast: A Novel Approach using Modified Transfer Function and Energy Curve Equalization
 
 ## Overview
-<img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Performance_comparison.png" width="600"/>
+The block diagram of proposed method is shown below : 
+<img src="Block Diagram.png" width="600"/>
 
+The 
 **Benchmark results on SRx4 without x2 pretraining. Mulit-Adds are calculated for a 64x64 input.**
 | Model | Params(M) | Multi-Adds(G) | Set5 | Set14 | BSD100 | Urban100 | Manga109 |
 |-------|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
