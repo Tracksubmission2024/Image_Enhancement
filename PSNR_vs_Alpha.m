@@ -13,7 +13,7 @@ image_b = image_rgb(:,:,3); % Blue Channel
 L = 256; % Number of gray levels
 l = 0:L-1;
 
-alpha_values = 0:0.01:1.5; % Alpha values from 0.5 to 1.5 with a step of 0.1
+alpha_values = 0:0.01:1.5; % Alpha values from 0.5 to 1.5 with a step of 0.01
 psnr_values = zeros(size(alpha_values)); % Array to store PSNR values
 
 for i = 1:length(alpha_values)
