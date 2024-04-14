@@ -1,3 +1,5 @@
+%Code Implementation
+
 %image enhancement using energy equalisation with clipping limit
 clc;
 clear;
